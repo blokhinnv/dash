@@ -21,6 +21,7 @@ from ._utils import (
 
 from . import _validate
 
+import inspect
 
 class NoUpdate:
     # pylint: disable=too-few-public-methods
@@ -146,6 +147,10 @@ def register_callback(
             func_args, func_kwargs = _validate.validate_and_group_input_args(
                 args, inputs_state_indices
             )
+            if inspect.getfullargspec(func).varkw is not None:
+                func_kwargs['group'] = _kwargs.get("group", None)
+                func_kwargs['pre'] = _kwargs.get("pre", None)
+                func_kwargs['post'] = _kwargs.get("post", None)
 
             # don't touch the comment on the next line - used by debugger
             output_value = func(*func_args, **func_kwargs)  # %% callback invoked %%
