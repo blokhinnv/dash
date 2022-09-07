@@ -6,7 +6,7 @@ const request = require('request');
 
 const refUrl = 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element';
 const dataPath = './data/elements.txt';
-const expectedElCount = 125;
+const expectedElCount = 123;
 
 /**
  * From the MDN HTML elements reference, extract a list of elements.
