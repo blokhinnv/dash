@@ -598,7 +598,7 @@ export function validateCallbacksToLayout(state_, dispatchError) {
 
 export function computeGraphs(dependencies, dispatchError) {
     // multiGraph is just for finding circular deps
-    const multiGraph = new DepGraph();
+    const multiGraph = new DepGraph({circular: true});
 
     const wildcardPlaceholders = {};
 
