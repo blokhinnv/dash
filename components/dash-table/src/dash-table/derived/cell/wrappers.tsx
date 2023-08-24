@@ -115,7 +115,8 @@ class Wrappers {
             (active ? ' focused' : '') +
             (selected ? ' cell--selected' : '') +
             (isDropdown ? ' dropdown' : '');
-
+        
+        // tableID is already stringified somewhere ...
         return this.wrapper.get(rowIndex, columnIndex)(
             active,
             className,
@@ -129,6 +130,23 @@ class Wrappers {
             this.handlers(Handler.Click, rowIndex, columnIndex),
             this.handlers(Handler.DoubleClick, rowIndex, columnIndex)
         );
+    }
+
+    private buildColumnId(tableId: string, rowIndex: number, columnIndex: number): string  {
+        let idObj: { [key: string]: any};
+        try{
+            idObj = JSON.parse(tableId)
+        } catch (e){
+            return tableId
+        }
+        idObj.row = rowIndex
+        idObj.col = columnIndex
+        const parts = (
+            Object.keys(idObj)
+            .sort()
+            .map((k: string) => JSON.stringify(k) + '_' + JSON.stringify(idObj[k]))
+        )
+        return parts.join('__').replace(/["']/g, '')
     }
 
     /**
@@ -153,7 +171,7 @@ class Wrappers {
                 attributes={{
                     'data-dash-column': columnId,
                     'data-dash-row': rowIndex,
-                    id: `${tableID}-${rowIndex}-${columnIndex}`
+                    id: this.buildColumnId(tableID, rowIndex, columnIndex)
                 }}
                 className={className}
                 key={`column-${columnIndex}`}
