@@ -95,7 +95,7 @@ export default memoizeOneFactory(
                       .map(getHiddenCell)
                       .concat(row.slice(pivot));
               }, cells);
-
+            
         // slice out fixed rows
         const fixedRowCells = fixedRows ? cells.slice(0, fixedRows) : null;
 
