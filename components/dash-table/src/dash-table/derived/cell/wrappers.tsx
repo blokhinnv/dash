@@ -31,7 +31,7 @@ class Wrappers {
     ) {}
 
     partialGet = memoizeOne(
-        (columns: Columns, data: Data, offset: IViewportOffset) =>
+        (columns: Columns, data: Data, offset: IViewportOffset, tableId: string) =>
             R.addIndex<Datum, JSX.Element[]>(R.map)(
                 (_, rowIndex) =>
                     R.addIndex<IColumn, JSX.Element>(R.map)(
@@ -41,7 +41,8 @@ class Wrappers {
                                 false,
                                 rowIndex + offset.rows,
                                 columnIndex,
-                                column
+                                column,
+                                tableId,
                             ),
                         columns
                     ),
@@ -104,11 +105,12 @@ class Wrappers {
         selected: boolean,
         rowIndex: number,
         columnIndex: number,
-        column: IColumn
+        column: IColumn,
+        tableID: string,
     ) {
         const isDropdown = column.presentation === Presentation.Dropdown;
         const className =
-            'dash-cell' +
+            'dash-cell qwe' +
             ` column-${columnIndex}` +
             (active ? ' focused' : '') +
             (selected ? ' cell--selected' : '') +
@@ -120,6 +122,7 @@ class Wrappers {
             columnIndex,
             column.id,
             rowIndex,
+            tableID,
             this.handlers(Handler.Enter, rowIndex, columnIndex),
             this.handlers(Handler.Leave, rowIndex, columnIndex),
             this.handlers(Handler.Move, rowIndex, columnIndex),
@@ -138,6 +141,7 @@ class Wrappers {
             columnIndex: number,
             columnId: ColumnId,
             rowIndex: number,
+            tableID: string,
             onEnter: (e: MouseEvent) => void,
             onLeave: (e: MouseEvent) => void,
             onMove: (e: MouseEvent) => void,
@@ -148,7 +152,8 @@ class Wrappers {
                 active={active}
                 attributes={{
                     'data-dash-column': columnId,
-                    'data-dash-row': rowIndex
+                    'data-dash-row': rowIndex,
+                    id: `${tableID}-${rowIndex}-${columnIndex}`
                 }}
                 className={className}
                 key={`column-${columnIndex}`}

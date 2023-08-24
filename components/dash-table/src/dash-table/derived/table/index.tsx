@@ -103,7 +103,7 @@ export default (propsFn: () => ControlledTableProps) => {
 
     return () => {
         const edges = edgeFactory.createEdges();
-
+        
         const dataCells = cellFactory.createCells(
             edges.dataEdges,
             edges.dataOpEdges

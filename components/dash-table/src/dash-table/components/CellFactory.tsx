@@ -71,7 +71,7 @@ export default class CellFactory {
             virtualized,
             visibleColumns
         } = this.props;
-
+        
         const relevantStyles = this.relevantStyles(
             style_cell,
             style_data,
@@ -126,7 +126,8 @@ export default class CellFactory {
         const partialCellWrappers = this.cellWrappers.partialGet(
             visibleColumns,
             virtualized.data,
-            virtualized.offset
+            virtualized.offset,
+            id,
         );
 
         const cellWrappers = this.cellWrappers.get(
