@@ -110,7 +110,7 @@ class Wrappers {
     ) {
         const isDropdown = column.presentation === Presentation.Dropdown;
         const className =
-            'dash-cell qwe' +
+            'dash-cell' +
             ` column-${columnIndex}` +
             (active ? ' focused' : '') +
             (selected ? ' cell--selected' : '') +
